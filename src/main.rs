@@ -12,6 +12,8 @@ use crate::generatannot::getrsid;
 use crate::map::mapid;
 use clap::Parser;
 use figlet_rs::FIGfont;
+mod exp;
+use crate::exp::read_csv;
 
 /*
  Author Gaurav Sablok
@@ -43,6 +45,43 @@ fn main() {
         Commands::RsIDSolana { rsid } => {
             let command = getrsidsolana(rsid).unwrap();
             println!("The borsh index for the token has been written:{}", command);
+        }
+        Commands::ThreadedLengthHuman { generate } => {
+            let command = task::block_on(threadedlengthhuman(generate)).unwrap();
+            println!("The command has finished:{:?}", command);
+        }
+        Commands::ThreadedLengthMouse { generate } => {
+            let command = task::block_on(threadedlengthmouse(generate)).unwrap();
+            println!("The command has finished:{:?}", command);
+        }
+        Commands::ThreadedHuman { count } => {
+            let command = task::block_on(threadedlengthhuman(count)).unwrap();
+            println!("The command has finished:{:?}", command);
+        }
+        Commands::ThreadedMouse { count } => {
+            let command = task::block_on(threadedlengthmouse(count)).unwrap();
+            println!("The command has finished:{:?}", command);
+        }
+        Commands::ExonThreadedHuman { count } => {
+            let command = task::block_on(threadedlengthhumanexon(count)).unwrap();
+            println!("The file has been written:{}", command);
+        }
+        Commands::ExonThreadedMouse { count } => {
+            let command = task::block_on(threadedlengthmouseexon(count)).unwrap();
+            println!("The file has been written:{}", command);
+        }
+        Commands::TMMEstimate { count } => {
+            let input_path = Path::new(count);
+            let output_path = input_path.with_extension("normalized.tsv");
+            let mut data = read_csv(input_path)?;
+            let (n_genes, n_samples) = data.dim();
+            let lib_sizes = compute_library_sizes(&data);
+            let ref_sample = 0;
+            let tmm_factors = compute_tmm_factors(&data, &lib_sizes, ref_sample)?;
+            let normalized = normalize_to_logcpm(&data, &lib_sizes, &tmm_factors)?;
+            write_output(&normalized, &output_path)?;
+            println!("Normalized data written to {}", output_path.display());
+            Ok(())
         }
     }
 }
