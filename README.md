@@ -1,4 +1,4 @@
-# humanCAST
+# humancast
 
 - human annotation cast providing multitude of human genome analysis.
 
