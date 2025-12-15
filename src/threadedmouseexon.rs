@@ -1,4 +1,4 @@
-use crate::exon::exonunwrap;
+use crate::threadedmouse
 use std::error::Error;
 use std::fs::File;
 use std::io::{BufRead, BufReader, Write};
@@ -6,8 +6,8 @@ use std::path::Path;
 use std::process::Command;
 
 /*
-Author Gaurav Sablok,
-Email: codeprog@icloud.com
+Gaurav Sablok
+codeprog@icloud.com
 */
 
 struct ExonCap {
@@ -15,7 +15,7 @@ struct ExonCap {
     length: usize,
 }
 
-pub async fn threadedlengthmouseexon(count: &str) -> Result<String, Box<dyn Error>> {
+pub fn threadedlengthmouseexon(count: &str) -> Result<String, Box<dyn Error>> {
     let pathadd = Path::new("gencode.v48.primary_assembly.annotation.gtf.gz");
     if !pathadd.exists() {
         let _ = Command::new("wget").

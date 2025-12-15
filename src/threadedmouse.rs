@@ -6,11 +6,8 @@ use std::path::Path;
 use std::process::Command;
 
 /*
- Author Gaurav Sablok
- Instytut Chemii Bioorganicznej
- Polskiej Akademii Nauk
- ul. Noskowskiego 12/14 | 61-704, Poznań
- Date: 2025-7-16
+Gaurav Sablok
+codeprog@icloud.com
 */
 
 #[derive(Debug, Clone, PartialOrd, PartialEq)]
@@ -20,7 +17,7 @@ struct GeneLength {
     length: usize,
 }
 
-pub async fn threadedlengthmouse(generate: &str) -> Result<String, Box<dyn Error>> {
+pub fn threadedlengthmouse(generate: &str) -> Result<String, Box<dyn Error>> {
     let pathadd = Path::new("gencode.v48.primary_assembly.annotation.gtf.gz");
     if generate == "yes" && !pathadd.exists() {
         let _ = Command::new("wget").

@@ -6,8 +6,8 @@ use std::path::Path;
 use std::process::Command;
 
 /*
-Author Gaurav Sablok,
-Email: codeprog@icloud.com
+Gaurav Sablok
+codeprog@icloud.com
 */
 
 #[derive(Debug, Clone, PartialOrd, PartialEq)]
@@ -16,7 +16,7 @@ struct ExonCap {
     length: usize,
 }
 
-pub async fn threadedlengthhumanexon(count: &str) -> Result<String, Box<dyn Error>> {
+pub fn threadedlengthhumanexon(count: &str) -> Result<String, Box<dyn Error>> {
     let pathadd = Path::new("gencode.v48.primary_assembly.annotation.gtf.gz");
     if !pathadd.exists() {
         let _ = Command::new("wget").

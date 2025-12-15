@@ -8,15 +8,11 @@ use std::io::{BufRead, BufReader};
 use std::thread;
 
 /*
- Author Gaurav Sablok
- Instytut Chemii Bioorganicznej
- Polskiej Akademii Nauk
- ul. Noskowskiego 12/14 | 61-704, Poznań
- Date: 2025-8-18
+Gaurav Sablok
+codeprog@icloud.com
 */
 
-#[tokio::main]
-pub async fn annotateall(optionannot: &str, pathstring: &str) -> Result<String, Box<dyn Error>> {
+pub fn annotateall(optionannot: &str, pathstring: &str) -> Result<String, Box<dyn Error>> {
     if optionannot == "yes" && pathstring != "" {
         let filesnpopen = File::open(pathstring).expect("file not present");
         let filesnpread = BufReader::new(filesnpopen);
